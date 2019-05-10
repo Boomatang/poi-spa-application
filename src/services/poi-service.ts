@@ -22,9 +22,7 @@ export class PoiService {
     httpClient.configure(http => {
       http.withBaseUrl('http://localhost:3000');
     });
-    this.getPoi();
-    this.getUsers();
-    // this.getDonations();
+
   }
 
   async getPoi() {
@@ -95,8 +93,18 @@ export class PoiService {
   }
 
   async login(email: string, password: string) {
-    const user = this.users.get(email);
-    if (user && user.password === password) {
+    const response = await this.httpClient.post('/api/user/authenticate', {
+      email: email,
+      password: password
+    });
+    const status = await response.content;
+    if(status.success){
+      this.httpClient.configure(configuration => {
+        configuration.withHeader('Authorization', 'bearer ' + status.token);
+      });
+      localStorage.poi = JSON.stringify(response.content);
+      await this.getPoi();
+      await this.getUsers();
       this.changeRouter(PLATFORM.moduleName('app'));
       return true;
     } else {
@@ -105,6 +113,11 @@ export class PoiService {
   }
 
   logout() {
+    localStorage.poi = null;
+
+    this.httpClient.configure(configuration => {
+      configuration.withHeader('Authorization', '');
+    });
     this.changeRouter(PLATFORM.moduleName('start'));
   }
 
@@ -118,5 +131,19 @@ export class PoiService {
     const response = await this.httpClient.delete(`/api/poi/${id}`);
     console.log(response);
     this.router.navigateToRoute("")
+  }
+
+  async checkIsAuthenticated() {
+    let authenticated = false;
+    if(localStorage.poi !=='null'){
+      authenticated = true;
+      this.httpClient.configure(configuration => {
+        const auth = JSON.parse(localStorage.poi);
+        configuration.withHeader('Authorization', 'bearer ' + auth.token)
+      });
+      await this.getPoi();
+      await this.getUsers();
+      this.changeRouter(PLATFORM.moduleName('app'))
+    }
   }
 }
