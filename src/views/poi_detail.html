@@ -1,0 +1,16 @@
+<template>
+  <require from="../resources/elements/edit-menu"></require>
+  <div class="ui grid">
+    <aside class="six wide column">
+      <img src="${poi.image}" class="ui medium image">
+    </aside>
+    <article class="ten wide column">
+      <edit-menu poi.bind="poi"></edit-menu>
+      <header class="ui  header"> Name : ${poi.name}</header>
+      <header class="ui small header">Coastal Zone : ${poi.category.name}</header>
+      <header class="ui tiny header">Longitude : ${poi.geo.long}</header>
+      <header class="ui tiny header">Latitude : ${poi.geo.lat}</header>
+      <p> ${poi.description} </p>
+    </article>
+  </div>
+</template>

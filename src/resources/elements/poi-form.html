@@ -1,0 +1,58 @@
+<template>
+
+  <form submit.trigger="addPoi()" class="ui form stacked segment">
+    <h3 class="ui header">Create Point Of Interest</h3>
+
+    <div class="field">
+      <label>Name</label>
+      <input value.bind="name" type="text">
+    </div>
+
+    <div class="field">
+      <label>Coastal Zone</label>
+      <select name="coastalZone" class="ui dropdown">
+        <option value="">Choose a Coastal Zone</option>
+        {{#each zones}}
+        <option value="{{_id}}">{{name}}</option>
+        {{/each}}
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Description</label>
+      <textarea value.bind="description" rows="4"></textarea>
+    </div>
+
+    <div class="two fields">
+      <div class="field">
+        <label>Longitude</label>
+        <input value.bind="long" type="text">
+      </div>
+      <div class="field">
+        <label>Latitude</label>
+        <input value.bind="lat" type="text"">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Select Image *Not working*</label>
+      <input type="file" name="fileUpload" >
+    </div>
+
+    <button class="ui blue submit button">Add</button>
+  </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</template>
