@@ -136,8 +136,21 @@ export class PoiService {
 
   async deleteCurrentPOI(id) {
     const response = await this.httpClient.delete(`/api/poi/${id}`);
-    console.log(response);
-    this.router.navigateToRoute("")
+    // console.log(response);
+    await this.refreshPois();
+    await this.router.navigateToRoute("Poi")
+  }
+
+  async updateCurrentPOI(poi){
+    const response = await this.httpClient.put(`/api/poi`, poi);
+    // console.log(response);
+    await this.refreshPois();
+    await this.router.navigateToRoute("poiDetail", {id: poi._id});
+  }
+
+  async refreshPois(){
+    this.poi = null;
+    await this.getPoi();
   }
 
   async checkIsAuthenticated() {

@@ -1,0 +1,37 @@
+<template>
+  <div show.bind="!edit">
+      <header class="ui  header"> Name : ${poi.name}</header>
+      <header class="ui small header">Coastal Zone : ${poi.category.name}</header>
+      <header class="ui tiny header">Longitude : ${poi.geo.long}</header>
+      <header class="ui tiny header">Latitude : ${poi.geo.lat}</header>
+      <div innerhtml.bind="poi.description"> </div>
+  </div>
+
+  <div show.bind="edit">
+    <div class="ui stacked fluid form segment">
+    <form submit.trigger="update()">
+      <h3 class="ui header">Edit Point Of Interest</h3>
+      <div class="field">
+        <label>Name</label>
+        <input value.bind="poi.name" type="text" name="name">
+      </div>
+
+      <div class="field">
+        <label>Description</label>
+        <textarea rows="4" name="description" value.bind="poi.description"></textarea>
+      </div>
+      <div class="two fields">
+        <div class="field">
+          <label>Longitude</label>
+          <input value.bind="poi.geo.long" type="text" name="long">
+        </div>
+        <div class="field">
+          <label>Latitude</label>
+          <input value.bind="poi.geo.lat" type="text" name="lat">
+        </div>
+      </div>
+      <button class="ui blue submit button">Save</button>
+    </form>
+  </div>
+  </div>
+</template>
