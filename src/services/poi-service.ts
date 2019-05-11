@@ -11,6 +11,7 @@ export class PoiService {
   users: Map<string, User> = new Map();
   usersById: Map<string, User> = new Map();
   poi: POI[] = [];
+  user: User;
 
 
   constructor(
@@ -47,6 +48,20 @@ export class PoiService {
     });
   }
 
+  async getUserById(id){
+    const response = await this.httpClient.get(`/api/user/${id}`);
+    const user = await response.content;
+    console.log(user);
+    return user;
+  }
+
+  async getCurrentUser(){
+    const response = await this.httpClient.get(`/api/user/current`);
+    const user = await response.content;
+    console.log(user);
+    this.user = user;
+  }
+
 
   async createPoi(name: string, description: string, long: string, lat: string, zone: string, imagePath: string) {
     const poi = {
@@ -63,19 +78,10 @@ export class PoiService {
     const newPoi = await response.content;
     this.poi.push(newPoi);
   }
-  //
-  // async donate(amount: number, method: string, candidate: Candidate) {
-  //   const donation = {
-  //     amount: amount,
-  //     method: method,
-  //     candidate: candidate
-  //   };
-  //   const response = await this.httpClient.post('/api/pois/' + candidate._id + '/donations', donation);
-  //   this.donations.push(donation);
-  //   this.total = this.total + amount;
-  //   this.ea.publish(new TotalUpdate(this.total));
-  //   console.log('Total so far ' + this.total);
-  // }
+
+  async updateUser(user){
+    const response = await this.httpClient.put('/api/user', user);
+  }
 
   async signup(firstName: string, lastName: string, email: string, password: string) {
     const user = {
@@ -105,6 +111,7 @@ export class PoiService {
       localStorage.poi = JSON.stringify(response.content);
       await this.getPoi();
       await this.getUsers();
+      await this.getCurrentUser();
       this.changeRouter(PLATFORM.moduleName('app'));
       return true;
     } else {
@@ -146,4 +153,5 @@ export class PoiService {
       this.changeRouter(PLATFORM.moduleName('app'))
     }
   }
+
 }

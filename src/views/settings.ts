@@ -7,8 +7,10 @@ export class Settings{
   @bindable
   user: User;
 
-  constructor(private ds: PoiService){
-
+  constructor(private ds: PoiService) {
+    this.user = ds.user;
   }
+
+
 }
 
