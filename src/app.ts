@@ -21,6 +21,13 @@ export class App {
         title: "Island"
       },
       {
+        route: 'map',
+        name: 'map',
+        moduleId: PLATFORM.moduleName('views/map'),
+        nav: true,
+        title: 'Map'
+      },
+      {
         route: 'create',
         name: 'poiCreate',
         moduleId: PLATFORM.moduleName('views/poi-create'),

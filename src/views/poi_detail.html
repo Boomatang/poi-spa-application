@@ -1,8 +1,10 @@
 <template>
   <require from="../resources/elements/edit-menu"></require>
+  <require from="../resources/elements/poi-map"></require>
   <div class="ui grid">
     <aside class="six wide column">
       <img src="${poi.image}" class="ui medium image">
+      <poi-map poi.bind="poi"></poi-map>
     </aside>
     <article class="ten wide column">
       <edit-menu poi.bind="poi"></edit-menu>
