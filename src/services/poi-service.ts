@@ -4,13 +4,14 @@ import { PLATFORM } from 'aurelia-pal';
 import { POI, User } from './poi-types';
 import { HttpClient } from 'aurelia-http-client';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { TotalUpdate } from './messages';
+import { CommentUpdate } from './messages';
 
 @inject(HttpClient, EventAggregator, Aurelia, Router)
 export class PoiService {
   users: Map<string, User> = new Map();
   usersById: Map<string, User> = new Map();
   poi: POI[] = [];
+  poiById: Map<string, POI> = new Map();
   user: User;
 
 
@@ -29,6 +30,11 @@ export class PoiService {
   async getPoi() {
     const response = await this.httpClient.get('/api/poi');
     this.poi = await response.content;
+
+    this.poi.forEach(poi => {
+      this.poiById.set(poi._id, poi);
+    });
+
     console.log(this.poi);
   }
 
@@ -74,6 +80,7 @@ export class PoiService {
       category: zone,
       image: imagePath
     };
+
     const response = await this.httpClient.post('/api/poi', poi);
     const newPoi = await response.content;
     this.poi.push(newPoi);
@@ -165,6 +172,20 @@ export class PoiService {
       await this.getUsers();
       this.changeRouter(PLATFORM.moduleName('app'))
     }
+  }
+
+  async addComment(id, comment){
+    console.log("Comment has been added");
+
+    const response = await this.httpClient.post(`/api/poi/${id}/comment`, {comment: comment});
+    console.log(response.response);
+
+    // const poi = this.poiById.get(id);
+    // poi.comments.push(comment);
+    // this.poiById.set(id, poi);
+    this.ea.publish(new CommentUpdate(response.response, id));
+    //
+    // await this.refreshPois();
   }
 
 }

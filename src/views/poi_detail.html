@@ -2,6 +2,7 @@
   <require from="../resources/elements/edit-menu"></require>
   <require from="../resources/elements/poi-map"></require>
   <require from="../resources/elements/poi-desc"></require>
+  <require from="../resources/elements/comment-section"></require>
   <div class="ui grid">
     <aside class="six wide column">
       <img src="${poi.image}" class="ui medium image">
@@ -10,6 +11,8 @@
     <article class="ten wide column">
       <edit-menu poi.bind="poi" edit.two-way="edit"></edit-menu>
       <poi-desc poi.bind="poi" edit.two-way="edit"></poi-desc>
+      <comment-section poi.bind="poi"></comment-section>
     </article>
+
   </div>
 </template>

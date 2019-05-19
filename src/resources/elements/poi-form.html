@@ -1,6 +1,6 @@
 <template>
 
-  <form submit.trigger="addPoi()" class="ui form stacked segment">
+  <form submit.trigger="addPoi()" class="ui form stacked segment" enctype="multipart/form-data">
     <h3 class="ui header">Create Point Of Interest</h3>
 
     <div class="field">
@@ -30,7 +30,7 @@
       </div>
       <div class="field">
         <label>Latitude</label>
-        <input value.bind="lat" type="text"">
+        <input value.bind="lat" type="text">
       </div>
     </div>
 

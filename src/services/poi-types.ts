@@ -10,6 +10,7 @@ export interface POI {
   geo: Location;
   zone: string;
   imagePath: string;
+  comments: PoiComment[];
 }
 
 export interface User {
@@ -18,4 +19,10 @@ export interface User {
   email: string;
   password: string;
   _id: string;
+}
+
+export interface PoiComment {
+  userName: string;
+  comment: string;
+  date: string;
 }

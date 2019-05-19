@@ -1,0 +1,21 @@
+<template>
+  <require from="./comment-basic"></require>
+  <require from="./comment-add"></require>
+
+  <div class="ui raised segment">
+    <h3 class="ui dividing header">Comments</h3>
+
+
+  <div class="ui comments" show.bind="poi.comments.length > 0">
+    <div repeat.for="comment of poi.comments">
+      <comment-basic comment.two-way="comment"></comment-basic>
+    </div>
+  </div>
+    <section>
+    <comment-add poi_id.bind="poi._id"></comment-add>
+    </section>
+  </div>
+
+
+
+</template>

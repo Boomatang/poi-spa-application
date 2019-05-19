@@ -1,4 +1,5 @@
 <template>
+  <div class="ui raised segment">
   <div show.bind="!edit">
       <header class="ui  header"> Name : ${poi.name}</header>
       <header class="ui small header">Coastal Zone : ${poi.category.name}</header>
@@ -32,6 +33,7 @@
       </div>
       <button class="ui blue submit button">Save</button>
     </form>
+  </div>
   </div>
   </div>
 </template>
