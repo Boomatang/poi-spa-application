@@ -22,7 +22,7 @@ export class PoiService {
     private router: Router
   ) {
     httpClient.configure(http => {
-      http.withBaseUrl('http://localhost:3000');
+      http.withBaseUrl('http://63.32.99.91:3000');
     });
 
   }
